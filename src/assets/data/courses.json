@@ -1,0 +1,9 @@
+[
+
+    {"courseId": 1,"courseName": "English"},
+    {"courseId": 2,"courseName": "Math"},
+    {"courseId": 3,"courseName": "Bangla"},
+    {"courseId": 4,"courseName": "Physics"},
+    {"courseId": 5,"courseName": "Chemistry"},
+    {"courseId": 6,"courseName": "Biology"}
+]
