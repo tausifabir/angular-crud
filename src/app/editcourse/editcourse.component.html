@@ -11,9 +11,10 @@
             <input
               type="text"
               ngModel
+              [(ngModel)]="course.courseName"
               name="courseName"
               class="form-control"
-              placeholder="{courseList.courseName}"
+              placeholder="{{ course.courseName }}"
               required
               minlength="4"
               maxlength="30"
@@ -22,6 +23,13 @@
 
           <div class="footer-body">
             <button type="submit" class="btn btn-primary">Submit</button>
+            <button
+              type="button"
+              class="btn btn-info px-3 mx-2"
+              (click)="goBack()"
+            >
+              Go Back
+            </button>
           </div>
         </form>
       </div>

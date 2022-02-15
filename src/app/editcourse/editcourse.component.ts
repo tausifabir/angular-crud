@@ -1,27 +1,52 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseListService } from '../course-list.service';
-
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { Course } from '../course';
 @Component({
   selector: 'app-editcourse',
   templateUrl: './editcourse.component.html',
   styleUrls: ['./editcourse.component.css'],
 })
 export class EditcourseComponent implements OnInit {
-  constructor(private _courseService: CourseListService) {}
+  course: any;
 
-  courseList: any;
-  ngOnInit(): void {}
+  constructor(
+    private _courseService: CourseListService,
+    private route: ActivatedRoute,
+    private location: Location
+  ) {}
 
-  getAllCourses() {
-    this._courseService
-      .getCouseById(1)
-      .subscribe((data) => (this.courseList = data));
+  ngOnInit(): void {
+    //this.route.queryParams.subscribe((params) => {
+    // console.log(params); // { orderby: "courseId" }
+    // this.id = params['courseId'];
+    //
+    //  console.log(this.id); // courseId
+    // });
+
+    this.getCourseById();
+    console.log(this.course);
+  }
+
+  getCourseById() {
+    const id = this.route.snapshot.paramMap.get('id');
+    this._courseService.getCouseById(id).subscribe((data) => {
+      this.course = data;
+      console.log(this.course);
+    });
   }
 
   editCourse(data: any) {
-    this._courseService.addCourse(data).subscribe((result: any) => {
+    const id = this.route.snapshot.paramMap.get('id');
+    this._courseService.updateCourse(id, data).subscribe((result: any) => {
       console.warn(result);
-      alert('Course edited successfully');
+      alert('Course updated successfully');
+      this.goBack();
     });
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

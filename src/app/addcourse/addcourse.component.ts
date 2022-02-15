@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Course } from '../course';
 import { CourseListService } from '../course-list.service';
 import { NgForm } from '@angular/forms';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-addcourse',
@@ -11,7 +12,10 @@ import { NgForm } from '@angular/forms';
 })
 export class AddcourseComponent implements OnInit {
   data: any;
-  constructor(private _courseService: CourseListService) {}
+  constructor(
+    private _courseService: CourseListService,
+    private location: Location
+  ) {}
 
   ngOnInit(): void {}
 
@@ -19,6 +23,11 @@ export class AddcourseComponent implements OnInit {
     this._courseService.addCourse(data).subscribe((result: any) => {
       console.warn(result);
       alert('Course Added successfully');
+      this.goBack();
     });
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }
